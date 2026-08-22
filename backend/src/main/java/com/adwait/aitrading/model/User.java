@@ -38,5 +38,5 @@ public class User {
     private String picture;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.ROLE_CUSTOMER;
+    private UserRole role = UserRole.ROLE_USER;
 }

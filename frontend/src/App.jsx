@@ -47,8 +47,8 @@ function App() {
 dispatch(getUser(localStorage.getItem("jwt")))
   },[auth.jwt])
 
-  //const showNavbar=!auth.user?false:shouldShowNavbar(location.pathname,routes,auth.user?.role)
-  const showNavbar = true
+  const showNavbar=!auth.user?false:shouldShowNavbar(location.pathname,routes,auth.user?.role)
+  //const showNavbar = true
 
   return (
     <>
