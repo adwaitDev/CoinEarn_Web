@@ -48,6 +48,12 @@ public class AuthController {
     @Autowired
     private VerificationCodeService verificationCodeService;
 
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public AuthController(JwtTokenProvider jwtTokenProvider){
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> register(@RequestBody User user) throws Exception {
 
@@ -74,7 +80,7 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(auth);
-        String jwt_token = JwtTokenProvider.generateToken(auth);
+        String jwt_token = jwtTokenProvider.generateToken(auth);
 
         AuthResponse response = new AuthResponse();
         response.setJwt(jwt_token);
@@ -93,7 +99,7 @@ public class AuthController {
         Authentication auth = authenticate(username, password );
 
         SecurityContextHolder.getContext().setAuthentication(auth);
-        String jwt_token = JwtTokenProvider.generateToken(auth);
+        String jwt_token = jwtTokenProvider.generateToken(auth);
 
         // User auth_user = userRepository.findByEmail(username);
         User auth_user = userService.findUserProfileByEmail(username);

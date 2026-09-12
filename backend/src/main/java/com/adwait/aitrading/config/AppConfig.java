@@ -22,6 +22,14 @@ public class AppConfig {
     @Value("${app.cors.allowed-origins}")
     private List<String> allowedOrigins;
 
+    // NEW: inject the JwtConstant bean
+    private final JwtConstant jwtConstant;
+
+    // NEW: constructor injection
+    public AppConfig(JwtConstant jwtConstant) {
+        this.jwtConstant = jwtConstant;
+    }
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -34,7 +42,8 @@ public class AppConfig {
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
+                // CHANGED: pass jwtConstant into the constructor
+                .addFilterBefore(new JwtTokenValidator(jwtConstant), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // 2. Disable CSRF for H2
                         .disable()
