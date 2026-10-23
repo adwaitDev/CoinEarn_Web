@@ -1,0 +1,6 @@
+target/
+.idea/
+.gitattributes
+HELP.md
+.env
+*.log
