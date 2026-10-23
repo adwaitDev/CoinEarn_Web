@@ -5,9 +5,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # SPRING_PROFILES_ACTIVE decides which application-{profile}.properties
+      # SPRING_PROFILE decides which application-{profile}.properties
       # file Spring Boot loads. Switch dev <-> prod purely via .env, no changes needed here.
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILE}
+      SPRING_PROFILE: ${SPRING_PROFILE}
 
       # In dev, DB_URL points to H2 in-memory. In prod, it points to Aiven MySQL.
       # Same variable name either way - only the value in .env changes.
@@ -15,7 +15,8 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
 
-      JWT_SECRET_KEY: ${JWT_SECRET}
+      JWT_SECRET_KEY: ${JWT_CODE}
+      PROD_CORS_ORIGINS: ${CORS_ORIGINS}
 
       STRIPE_API_KEY: ${STRIPE_KEY}
       RAZORPAY_API_KEY: ${RAZORPAY_KEY}

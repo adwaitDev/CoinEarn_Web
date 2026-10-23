@@ -4,7 +4,7 @@ import {
   DragHandleHorizontalIcon,
   MagnifyingGlassIcon,
 } from "@radix-ui/react-icons";
-import SideBar from "../SideBar/SideBar";
+import SideBar from "../Sidebar/Sidebar";
 import {
   Sheet,
   SheetContent,
