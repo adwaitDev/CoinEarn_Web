@@ -1,13 +1,16 @@
 services:
   backend:
     build: ./backend
+    # For pushing on DockerHub: need DockerHub username & repo name
+    image: docker4adwait/cryptoplatform-backend:latest
+
     container_name: backend-api
     ports:
       - "8080:8080"
     environment:
       # SPRING_PROFILE decides which application-{profile}.properties
       # file Spring Boot loads. Switch dev <-> prod purely via .env, no changes needed here.
-      SPRING_PROFILE: ${SPRING_PROFILE}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILE}
 
       # In dev, DB_URL points to H2 in-memory. In prod, it points to Aiven MySQL.
       # Same variable name either way - only the value in .env changes.
@@ -35,6 +38,10 @@ services:
       context: ./frontend
       args:
         VITE_API_BASE_URL: ${BACKEND_URL}
+
+    # For pushing on DockerHub: need DockerHub username & repo name
+    image: docker4adwait/cryptoplatform-frontend:latest
+
     container_name: frontend-ui
     ports:
       - "5173:80"
